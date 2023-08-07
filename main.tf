@@ -4,6 +4,11 @@ terraform {
       source  = "hashicorp/google"
       version = "~> 4.71"
     }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "~> 4.76"
+    }
+
     random = {
       source  = "hashicorp/random"
       version = "3.4.3"
@@ -17,6 +22,7 @@ resource "random_pet" "service_account_random_name" {
 resource "google_service_account" "service_account" {
   account_id  = random_pet.service_account_random_name.id
   description = "Service Account for: ${var.repository_name}"
+  project     = var.project
 }
 
 resource "google_project_iam_member" "project" {
@@ -32,6 +38,7 @@ resource "google_project_iam_member" "project" {
 resource "google_iam_workload_identity_pool" "pool" {
   workload_identity_pool_id = "${google_service_account.service_account.account_id}-pool"
   description               = "GitHub OIDC for CI/CD"
+  project                   = var.project
 }
 
 resource "google_iam_workload_identity_pool_provider" "oidc_provider" {
@@ -45,6 +52,7 @@ resource "google_iam_workload_identity_pool_provider" "oidc_provider" {
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
   }
+  project = var.project
 }
 
 resource "google_service_account_iam_member" "workload_identity_pool_iam" {
