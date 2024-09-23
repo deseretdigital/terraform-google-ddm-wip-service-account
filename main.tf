@@ -4,10 +4,6 @@ terraform {
       source  = "hashicorp/google"
       version = "~> 4.71"
     }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = "~> 4.76"
-    }
     random = {
       source  = "hashicorp/random"
       version = "3.4.3"
@@ -43,13 +39,12 @@ resource "google_iam_workload_identity_pool" "pool" {
 resource "google_iam_workload_identity_pool_provider" "oidc_provider" {
   workload_identity_pool_id          = google_iam_workload_identity_pool.pool.workload_identity_pool_id
   workload_identity_pool_provider_id = "${google_service_account.service_account.account_id}-provider"
+  attribute_condition                = "assetion.repository_owner==${var.repository_owner}"
   attribute_mapping = {
-    "google.subject"                = "assertion.sub",
-    "attribute.actor"               = "assertion.actor_id",
-    "attribute.repository"          = "assertion.repository",
-    "attribute.repository_id"       = "assertion.repository_id",
-    "attribute.repository_owner"    = "assetion.repository_owner",
-    "attribute.repository_owner_id" = "assertion.repository_owner_id",
+    "google.subject"             = "assertion.sub",
+    "attribute.actor"            = "assertion.actor",
+    "attribute.repository"       = "assertion.repository",
+    "attribute.repository_owner" = "assertion.repository_owner"
   }
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
