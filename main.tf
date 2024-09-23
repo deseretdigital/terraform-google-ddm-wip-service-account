@@ -2,11 +2,11 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "~> 4.71"
+      version = "~> 6.3.0"
     }
     random = {
       source  = "hashicorp/random"
-      version = "3.4.3"
+      version = "~> 3.6.3"
     }
   }
 }
@@ -39,7 +39,7 @@ resource "google_iam_workload_identity_pool" "pool" {
 resource "google_iam_workload_identity_pool_provider" "oidc_provider" {
   workload_identity_pool_id          = google_iam_workload_identity_pool.pool.workload_identity_pool_id
   workload_identity_pool_provider_id = "${google_service_account.service_account.account_id}-provider"
-  attribute_condition                = "assetion.repository_owner==${var.repository_owner}"
+  attribute_condition                = "assertion.repository_owner == '${var.repository_owner}'"
   attribute_mapping = {
     "google.subject"             = "assertion.sub",
     "attribute.actor"            = "assertion.actor",
