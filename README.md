@@ -14,8 +14,8 @@ The module outputs a `wif_provider` and `wif_service_account` to be used in the 
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 6.3.0 |
-| <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.6.3 |
+| <a name="requirement_google"></a> [google](#requirement\_google) | ~> 4.71 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | 3.4.3 |
 
 ## Providers
 
@@ -37,7 +37,7 @@ No modules.
 | [google_project_iam_member.project](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
 | [google_service_account.service_account](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
 | [google_service_account_iam_member.workload_identity_pool_iam](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account_iam_member) | resource |
-| [random_pet.service_account_random_name](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/pet) | resource |
+| [random_pet.service_account_random_name](https://registry.terraform.io/providers/hashicorp/random/3.4.3/docs/resources/pet) | resource |
 
 ## Inputs
 
